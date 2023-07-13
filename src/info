@@ -1,0 +1,15 @@
+myblog v1 plans:
+=================
+db:
+----
+user - first_name, last_name, email, password, created_at
+role - [use fields from demo app] (subscriber, admin)
+users_roles - [use from demo app]
+
+pages:
+-----
+homepage, profile page
+
+functionalities:
+-------
+user signup, user login, user logout, user specific pages (profile)

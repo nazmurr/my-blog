@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile - Dashboard</title>
+</head>
+<body>
+    <h1>My Profile</h1>
+    <p>Name: <span th:text="${user.firstName}"></span> <span th:text="${user.lastName}"></span></p>
+    <p>Email: <span sec:authentication="name"></span></p>
+    <p>Member Since: <span th:text="${user.createdAt}"></span></p>
+    <p>Role: <span sec:authentication="principal.authorities"></span></p>
+
+</body>
+</html>
