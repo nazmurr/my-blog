@@ -1,7 +1,6 @@
-- add profile page (done)
-- add login register links to homepage (done)
-- add login link to register page (done)
-- add logout function (done)
-- add 404 page (done)
-- add profile page link to dashboard homepage (done)
-- divide templates to header, body and footer (done)
+ - create post table
+ - create post entity
+ - create relationship between user and post
+ - create controllers
+ - create add, edit, list posts page
+ - convert dashboard to bootstrap
