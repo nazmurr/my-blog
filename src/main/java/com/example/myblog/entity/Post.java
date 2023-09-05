@@ -27,7 +27,8 @@ public class Post {
     @Column(name="updated_at")
     private Date updatedAt;
 
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name="user_id")
     private User user;
 
@@ -108,7 +109,7 @@ public class Post {
                 ", status='" + status + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
-                ", user=" + user +
+                //", user=" + user +
                 '}';
     }
 }
