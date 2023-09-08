@@ -1,17 +1,26 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{./layout.html}">
 <head>
     <meta charset="UTF-8">
     <title>Dashboard</title>
 </head>
 <body>
-    <h1>Dashboard</h1>
-    <div>
-        <a th:href="@{/dashboard/my-profile}" class="btn btn-primary mt-3" role="button" aria-pressed="true">My profile</a>
+
+    <div layout:fragment="content">
+        <section class="my-5">
+            <div class="container">
+                <h1 class="mb-5">Dashboard</h1>
+                <div>
+                    <a th:href="@{/dashboard/my-profile}" class="btn btn-primary mt-3" role="button" aria-pressed="true">My profile</a>
+                </div>
+                <form action="#" th:action="@{/logout}" method="POST">
+                    <input type="submit" value="Logout" class="btn btn-outline-primary mt-2" />
+                </form>
+            </div>
+        </section>
     </div>
-    <form action="#" th:action="@{/logout}" method="POST">
-        <input type="submit" value="Logout" class="btn btn-outline-primary mt-2" />
-    </form>
 
 </body>
 </html>
