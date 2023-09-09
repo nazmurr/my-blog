@@ -1,11 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
 <head>
-    <meta charset="UTF-8">
     <title>Page not found</title>
 </head>
 <body>
-    <h1>Page Not Found</h1>
-    <p><a th:href="@{/}">Go back to homepage</a></p>
+
+<div layout:fragment="content">
+    <section class="my-5">
+        <div class="container">
+            <h1 class="mb-5">Page Not Found</h1>
+            <p><a th:href="@{/}">Go back to homepage</a></p>
+        </div>
+    </section>
+</div>
+
 </body>
 </html>

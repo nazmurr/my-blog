@@ -69,7 +69,7 @@ public class RegistrationController {
         User existing = userService.findByEmail(userEmail);
         if (existing != null){
             //theModel.addAttribute("webUser", new WebUser());
-            theModel.addAttribute("registrationError", "User name already exists.");
+            theModel.addAttribute("registrationError", "User email already exists.");
 
             logger.warning("User email already exists.");
             return "register/registration-form";

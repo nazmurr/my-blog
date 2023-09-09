@@ -5,6 +5,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Dashboard</title>
+    <style>
+        .table td a, .table th a {
+            color: inherit;
+        }
+        .table td.title {
+            max-width: 250px;
+        }
+        .table .badge {
+            font-size: 85%;
+        }
+    </style>
 </head>
 <body>
 
@@ -12,12 +23,51 @@
         <section class="my-5">
             <div class="container">
                 <h1 class="mb-5">Dashboard</h1>
-                <div>
-                    <a th:href="@{/dashboard/my-profile}" class="btn btn-primary mt-3" role="button" aria-pressed="true">My profile</a>
-                </div>
-                <form action="#" th:action="@{/logout}" method="POST">
-                    <input type="submit" value="Logout" class="btn btn-outline-primary mt-2" />
-                </form>
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Last Updated</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row"><a href="#">1</a></th>
+                        <td class="title"><a href="#">Good post title Good post title Good post title Good post title Good post title Good post title</a></td>
+                        <td><span class="badge badge-success">Published</span></td>
+                        <td>July 19, 2023</td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-secondary">Edit</button>
+                            <button type="button" class="btn btn-sm btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><a href="#">2</a></th>
+                        <td class="title"><a href="#">Good post title Good post title Good post title</a></td>
+                        <td><span class="badge badge-danger">Draft</span></td>
+                        <td>July 19, 2023</td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-secondary">Edit</button>
+                            <button type="button" class="btn btn-sm btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><a href="#">2</a></th>
+                        <td class="title"><a href="#">Good post title Good post title Good post title</a></td>
+                        <td><span class="badge badge-warning">Unpublished</span></td>
+                        <td>July 19, 2023</td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-secondary">Edit</button>
+                            <button type="button" class="btn btn-sm btn-danger">Delete</button>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+
             </div>
         </section>
     </div>
