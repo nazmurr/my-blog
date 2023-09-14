@@ -22,8 +22,16 @@
     <div layout:fragment="content">
         <section class="my-5">
             <div class="container">
-                <h1 class="mb-5">Dashboard</h1>
-                <table class="table">
+                <div class="row">
+                    <div class="col">
+                        <h1 class="mb-5">Dashboard</h1>
+                    </div>
+                    <div class="col" style="text-align: right;">
+                        <button type="button" class="btn btn-primary">+ Add Post</button>
+                    </div>
+                </div>
+
+                <table class="table" th:if="${not #lists.isEmpty(posts)}">
                     <thead class="thead-dark">
                     <tr>
                         <th scope="col">#</th>
@@ -34,36 +42,49 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row"><a href="#">1</a></th>
-                        <td class="title"><a href="#">Good post title Good post title Good post title Good post title Good post title Good post title</a></td>
-                        <td><span class="badge badge-success">Published</span></td>
-                        <td>July 19, 2023</td>
+                    <tr th:each="post : ${posts}">
+                        <th scope="row"><a th:text="${post.id}" th:href="@{/post/details(id=${post.id})}" href="#">1</a></th>
+                        <td class="title"><a th:text="${post.title}" th:href="@{/post/details(id=${post.id})}" href="#">Good post title Good post title Good post title Good post title Good post title Good post title</a></td>
                         <td>
-                            <button type="button" class="btn btn-sm btn-secondary">Edit</button>
-                            <button type="button" class="btn btn-sm btn-danger">Delete</button>
+                            <span
+                                    th:if="${post.status == 'published'}"
+                                    th:text="${#strings.capitalize(post.status)}"
+                                    class="badge badge-success">Published</span>
+                            <span
+                                    th:if="${post.status == 'unpublished'}"
+                                    th:text="${#strings.capitalize(post.status)}"
+                                    class="badge btn-secondary">Published</span>
+                            <span
+                                    th:if="${post.status == 'draft'}"
+                                    th:text="${#strings.capitalize(post.status)}"
+                                    class="badge btn-danger">Published</span>
+                        </td>
+                        <td th:text="${#dates.format(post.updatedAt, 'MMM dd, yyyy')}">July 19, 2023</td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-secondary" th:attr="data-id=${post.id}">Edit</button>
+                            <button type="button" class="btn btn-sm btn-danger" th:attr="data-id=${post.id}">Delete</button>
                         </td>
                     </tr>
-                    <tr>
-                        <th scope="row"><a href="#">2</a></th>
-                        <td class="title"><a href="#">Good post title Good post title Good post title</a></td>
-                        <td><span class="badge badge-danger">Draft</span></td>
-                        <td>July 19, 2023</td>
-                        <td>
-                            <button type="button" class="btn btn-sm btn-secondary">Edit</button>
-                            <button type="button" class="btn btn-sm btn-danger">Delete</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><a href="#">2</a></th>
-                        <td class="title"><a href="#">Good post title Good post title Good post title</a></td>
-                        <td><span class="badge badge-warning">Unpublished</span></td>
-                        <td>July 19, 2023</td>
-                        <td>
-                            <button type="button" class="btn btn-sm btn-secondary">Edit</button>
-                            <button type="button" class="btn btn-sm btn-danger">Delete</button>
-                        </td>
-                    </tr>
+<!--                    <tr>-->
+<!--                        <th scope="row"><a href="#">2</a></th>-->
+<!--                        <td class="title"><a href="#">Good post title Good post title Good post title</a></td>-->
+<!--                        <td><span class="badge badge-danger">Draft</span></td>-->
+<!--                        <td>July 19, 2023</td>-->
+<!--                        <td>-->
+<!--                            <button type="button" class="btn btn-sm btn-secondary">Edit</button>-->
+<!--                            <button type="button" class="btn btn-sm btn-danger">Delete</button>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <th scope="row"><a href="#">2</a></th>-->
+<!--                        <td class="title"><a href="#">Good post title Good post title Good post title</a></td>-->
+<!--                        <td><span class="badge badge-warning">Unpublished</span></td>-->
+<!--                        <td>July 19, 2023</td>-->
+<!--                        <td>-->
+<!--                            <button type="button" class="btn btn-sm btn-secondary">Edit</button>-->
+<!--                            <button type="button" class="btn btn-sm btn-danger">Delete</button>-->
+<!--                        </td>-->
+<!--                    </tr>-->
 
                     </tbody>
                 </table>
