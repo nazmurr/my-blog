@@ -27,7 +27,7 @@
                         <h1 class="mb-5">Dashboard</h1>
                     </div>
                     <div class="col" style="text-align: right;">
-                        <button type="button" class="btn btn-primary">+ Add Post</button>
+                        <button type="button" class="btn btn-primary" onclick="addPost()">+ Add Post</button>
                     </div>
                 </div>
 
@@ -92,6 +92,13 @@
             </div>
         </section>
     </div>
+    <th:block layout:fragment="optional">
+        <script>
+            function addPost() {
+                window.location.href="/dashboard/post/new";
+            }
+        </script>
+    </th:block>
 
 </body>
 </html>

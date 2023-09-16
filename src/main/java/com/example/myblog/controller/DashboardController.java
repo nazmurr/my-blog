@@ -9,8 +9,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -42,6 +45,26 @@ public class DashboardController {
         theModel.addAttribute("user", user);
 
         return "dashboard/user-profile";
+    }
+
+    @GetMapping({"/post/new"})
+    public String addPost(Authentication authentication, Model theModel) {
+        theModel.addAttribute("post", new Post());
+        return "dashboard/post/add-post";
+    }
+
+    @PostMapping({"/post/save-post"})
+    public String savePost(Authentication authentication,
+                           @ModelAttribute("post") Post thePost,
+                           Model theModel) {
+
+        User user = userService.findByEmail(authentication.getName());
+        thePost.setCreatedAt(new Date());
+        thePost.setUpdatedAt(new Date());
+        thePost.setUser(user);
+        postService.save(thePost);
+
+        return "redirect:/dashboard";
     }
 
 }
