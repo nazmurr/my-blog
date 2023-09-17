@@ -8,13 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/dashboard")
@@ -24,12 +22,14 @@ public class DashboardController {
 
     @Autowired
     public DashboardController(UserService userService, PostService postService) {
+
         this.userService = userService;
         this.postService = postService;
     }
 
     @GetMapping({"", "/"})
     public String home(Authentication authentication, Model theModel) {
+
         User user = userService.findByEmail(authentication.getName());
         List<Post> posts = postService.findPostsByUserId(Math.toIntExact(user.getId()));
         theModel.addAttribute("posts", posts);
@@ -39,6 +39,7 @@ public class DashboardController {
 
     @GetMapping("/my-profile")
     public String myProfile(Authentication authentication, Model theModel) {
+
         //System.out.println(authentication.getName());
         User user = userService.findByEmail(authentication.getName());
         //System.out.println(user.toString());
@@ -49,7 +50,9 @@ public class DashboardController {
 
     @GetMapping({"/post/new"})
     public String addPost(Authentication authentication, Model theModel) {
+
         theModel.addAttribute("post", new Post());
+
         return "dashboard/post/add-post";
     }
 
@@ -62,7 +65,55 @@ public class DashboardController {
         thePost.setCreatedAt(new Date());
         thePost.setUpdatedAt(new Date());
         thePost.setUser(user);
+        System.out.println("saving post");
+        System.out.println(thePost);
         postService.save(thePost);
+
+        return "redirect:/dashboard";
+    }
+
+    @GetMapping({"/post/edit/{id}"})
+    public String editPost(Authentication authentication, @PathVariable int id, Model theModel) {
+
+        User user = userService.findByEmail(authentication.getName());
+        Post post = postService.findById(id);
+
+        if (user == null || post == null) {
+            return "redirect:/dashboard";
+        }
+
+        if (!Objects.equals(user.getId(), post.getUser().getId())) {
+            return "redirect:/dashboard";
+        }
+
+        theModel.addAttribute("post", post);
+
+        return "dashboard/post/edit-post";
+    }
+
+    @PostMapping({"/post/update-post"})
+    public String updatePost(Authentication authentication, @ModelAttribute("post") Post webPost) {
+
+        User user = userService.findByEmail(authentication.getName());
+        Post post = postService.findById(Math.toIntExact(webPost.getId()));
+
+        if (user == null || post == null) {
+            return "redirect:/dashboard";
+        }
+
+        if (!Objects.equals(user.getId(), post.getUser().getId())) {
+            return "redirect:/dashboard";
+        }
+
+        post.setTitle(webPost.getTitle());
+        post.setContent(webPost.getContent());
+        post.setStatus(webPost.getStatus());
+        post.setUpdatedAt(new Date());
+
+//        System.out.println("updating post");
+//        System.out.println(post);
+//        System.out.println(post.getUser());
+        postService.save(post);
 
         return "redirect:/dashboard";
     }
