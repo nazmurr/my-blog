@@ -118,4 +118,24 @@ public class DashboardController {
         return "redirect:/dashboard";
     }
 
+    @GetMapping({"/post/delete/{id}"})
+    public String deletePost(Authentication authentication, @PathVariable int id) {
+
+        User user = userService.findByEmail(authentication.getName());
+        Post post = postService.findById(id);
+
+        if (user == null || post == null) {
+            return "redirect:/dashboard";
+        }
+
+        //check if post is belong to the current logged in user
+        if (!Objects.equals(user.getId(), post.getUser().getId())) {
+            return "redirect:/dashboard";
+        }
+
+        postService.deleteById(id);
+
+        return "redirect:/dashboard";
+    }
+
 }

@@ -62,12 +62,11 @@
                             <td th:text="${#dates.format(post.updatedAt, 'MMM dd, yyyy')}">July 19, 2023</td>
                             <td>
                                 <button type="button" class="btn btn-sm btn-secondary" th:attr="data-id=${post.id}" onclick="editPost(this)">Edit</button>
-                                <button type="button" class="btn btn-sm btn-danger" th:attr="data-id=${post.id}">Delete</button>
+                                <button type="button" class="btn btn-sm btn-danger" th:attr="data-id=${post.id}" onclick="deletePost(this)">Delete</button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-
             </div>
         </section>
     </div>
@@ -80,6 +79,12 @@
             function editPost(element) {
                var postId = element.getAttribute('data-id');
                 window.location.href="/dashboard/post/edit/" + postId;
+            }
+
+            function deletePost(element) {
+                var postId = element.getAttribute('data-id');
+                var c = confirm('Are you sure you want to delete post with id ' + postId + '?');
+                if (c) window.location.href="/dashboard/post/delete/" + postId;
             }
         </script>
     </th:block>
