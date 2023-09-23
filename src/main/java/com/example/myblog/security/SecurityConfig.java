@@ -31,10 +31,16 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(configurer ->
                         configurer
-                                .requestMatchers("/", "/about", "/register", "/processRegistrationForm").permitAll()
+//                                .requestMatchers(
+//                                        "/",
+//                                        "/about",
+//                                        "/register",
+//                                        "/processRegistrationForm",
+//                                        "/post/**").permitAll()
                                 //.requestMatchers("/login", "/register", "/processRegistrationForm").anonymous()
                                 .requestMatchers("/dashboard/**").hasRole("SUBSCRIBER")
-                                .anyRequest().authenticated()
+                                //.anyRequest().authenticated()
+                                .anyRequest().permitAll()
                 )
                 .formLogin(form ->
                         form
