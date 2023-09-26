@@ -38,11 +38,13 @@ public class PostDaoImpl implements PostDao {
 
     @Override
     public List<Post> findPostsByUserId(int userId) {
+
         TypedQuery<Post> query = entityManager.createQuery(
-                "from Post where user.id = :data", Post.class);
+                "from Post where user.id = :data order by id desc", Post.class);
         query.setParameter("data", userId);
 
         List<Post> posts = query.getResultList();
+
         return posts;
     }
 }

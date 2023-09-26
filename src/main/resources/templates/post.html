@@ -9,7 +9,11 @@
     <div layout:fragment="content">
         <section class="my-5">
             <div class="container">
-                <h1 class="mb-5" th:text="${post.title}">Title</h1>
+                <h1 th:text="${post.title}">Title</h1>
+                <p class="mb-5 mt-3" style="font-size: 14px;">
+                    <i>Written By: <span th:text="${post.user.firstName + ' ' + post.user.lastName}">John doe</span> |
+                        Published At: <span th:text="${#calendars.format(post.createdAt,'MMMM dd, yyyy')}">July 31, 2023</span></i>
+                </p>
                 <div style="white-space: pre-wrap;" th:text="${post.content}">Post content</div>
             </div>
         </section>

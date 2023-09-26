@@ -1,6 +1,1 @@
- - create post table
- - create post entity
- - create relationship between user and post
- - create controllers
- - create add, edit, list posts page
- - convert dashboard to bootstrap
+- add blog page to display all posts from all users. use pagination
