@@ -36,4 +36,14 @@ public class PostServiceImpl implements PostService {
     public List<Post> findPostsByUserId(int userId) {
         return postDao.findPostsByUserId(userId);
     }
+
+    @Override
+    public List<Post> findAllPosts() {
+        return postDao.findAllPosts();
+    }
+
+    @Override
+    public List<Post> findAllPosts(String postStatus) {
+        return postDao.findAllPosts(postStatus);
+    }
 }

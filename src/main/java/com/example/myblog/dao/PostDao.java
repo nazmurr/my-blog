@@ -14,4 +14,8 @@ public interface PostDao {
 
     List<Post> findPostsByUserId(int userId);
 
+    List<Post> findAllPosts();
+
+    List<Post> findAllPosts(String postStatus);
+
 }

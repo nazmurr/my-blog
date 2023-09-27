@@ -12,4 +12,8 @@ public interface PostService {
     void deleteById(int postId);
 
     List<Post> findPostsByUserId(int userId);
+
+    List<Post> findAllPosts();
+
+    List<Post> findAllPosts(String postStatus);
 }

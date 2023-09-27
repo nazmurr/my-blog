@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
+
 @Controller
 public class GeneralPageController {
 
@@ -28,6 +30,15 @@ public class GeneralPageController {
         return "about";
     }
 
+    @GetMapping("/blog")
+    public String showBlog(Model theModel) {
+
+        List<Post> posts = postService.findAllPosts("published");
+        theModel.addAttribute("posts", posts);
+
+        return "blog";
+    }
+
     @GetMapping("/post/{id}")
     public String showPost(@PathVariable int id, Model theModel) {
 
@@ -38,6 +49,7 @@ public class GeneralPageController {
         }
 
         theModel.addAttribute("post", post);
+
         return "post";
     }
 }

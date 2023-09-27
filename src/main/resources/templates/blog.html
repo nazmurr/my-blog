@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+<head>
+    <title>Blog</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <section class="my-5">
+        <div class="container">
+            <h1 class="mb-5">Blog</h1>
+            <h5 th:if="${#lists.isEmpty(posts)}">No posts found</h5>
+
+            <div class="posts-wrap" th:if="${not #lists.isEmpty(posts)}">
+                <div class="card mb-4" th:each="post : ${posts}">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a th:text="${post.title}" th:href="@{/post/{id}(id=${post.id})}" href="#">This is a post</a>
+                        </h5>
+                        <h6
+                                style="font-size: 14px;"
+                                class="mb-3 card-subtitle mb-2 text-muted"
+                                th:text="${post.user.firstName + ' ' + post.user.lastName}">
+                            John Doe
+                        </h6>
+                        <p
+                                class="card-text"
+                                th:text="${#strings.length(post.content) > 100 ? #strings.substring(post.content,0,100) + '...' : post.content}">
+                            post content
+                        </p>
+                        <a th:href="@{/post/{id}(id=${post.id})}" href="#" class="btn btn-primary">Read More</a>
+                    </div>
+                    <div class="card-footer text-muted" th:text="${#dates.format(post.createdAt, 'MMM dd, yyyy')}">
+                        July 31, 2024
+                    </div>
+                </div>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">Previous</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+        </div>
+    </section>
+</div>
+
+</body>
+</html>

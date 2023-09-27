@@ -47,4 +47,28 @@ public class PostDaoImpl implements PostDao {
 
         return posts;
     }
+
+    @Override
+    public List<Post> findAllPosts() {
+
+        TypedQuery<Post> query = entityManager.createQuery(
+                "from Post order by id desc", Post.class);
+
+        List<Post> posts = query.getResultList();
+
+        return posts;
+    }
+
+    @Override
+    public List<Post> findAllPosts(String postStatus) {
+
+        TypedQuery<Post> query = entityManager.createQuery(
+                "from Post where status = :data order by id desc", Post.class);
+
+        query.setParameter("data", postStatus);
+
+        List<Post> posts = query.getResultList();
+
+        return posts;
+    }
 }
