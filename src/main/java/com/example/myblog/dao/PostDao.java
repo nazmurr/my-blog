@@ -16,6 +16,10 @@ public interface PostDao {
 
     List<Post> findAllPosts();
 
-    List<Post> findAllPosts(String postStatus);
+    List<Post> findAllPosts(String postStatus, int pageSize, int pageNo);
+
+    int getPostsCount();
+
+    int getPostsCount(String postStatus);
 
 }

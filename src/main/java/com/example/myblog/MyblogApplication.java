@@ -26,6 +26,8 @@ public class MyblogApplication {
 			//updatePost(postService, 3);
 			//deletePost(postService, 8);
 			//getPostsByUserId(postService, 1);
+			//getAllPosts(postService);
+			getPostsCount(postService);
 		};
 	}
 
@@ -53,6 +55,16 @@ public class MyblogApplication {
 		List<Post> posts = postService.findPostsByUserId(userId);
 		System.out.println(posts);
 
+	}
+
+	private void getAllPosts(PostService postService) {
+		List<Post> posts = postService.findAllPosts("published", 2, 1);
+		System.out.println(posts);
+	}
+
+	private void getPostsCount(PostService postService) {
+		System.out.println("total posts: " + postService.getPostsCount());
+		System.out.println("published posts: " + postService.getPostsCount("published"));
 	}
 
 }

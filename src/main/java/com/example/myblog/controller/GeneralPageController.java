@@ -30,10 +30,11 @@ public class GeneralPageController {
         return "about";
     }
 
-    @GetMapping("/blog")
-    public String showBlog(Model theModel) {
+    @GetMapping({"/blog", "/blog/{page}"})
+    public String showBlog(Model theModel, @PathVariable(required = false) Integer page) {
+        int pageSize = 2;
 
-        List<Post> posts = postService.findAllPosts("published");
+        List<Post> posts = postService.findAllPosts("published", pageSize, page == null ? 1 : page);
         theModel.addAttribute("posts", posts);
 
         return "blog";

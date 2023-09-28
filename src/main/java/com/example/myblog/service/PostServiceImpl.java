@@ -43,7 +43,17 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> findAllPosts(String postStatus) {
-        return postDao.findAllPosts(postStatus);
+    public List<Post> findAllPosts(String postStatus, int pageSize, int pageNo) {
+        return postDao.findAllPosts(postStatus, pageSize, pageNo);
+    }
+
+    @Override
+    public int getPostsCount() {
+        return postDao.getPostsCount();
+    }
+
+    @Override
+    public int getPostsCount(String postStatus) {
+        return postDao.getPostsCount(postStatus);
     }
 }
