@@ -27,7 +27,7 @@ public class MyblogApplication {
 			//deletePost(postService, 8);
 			//getPostsByUserId(postService, 1);
 			//getAllPosts(postService);
-			getPostsCount(postService);
+			//getPostsCount(postService);
 		};
 	}
 

@@ -65,8 +65,8 @@ public class DashboardController {
         thePost.setCreatedAt(new Date());
         thePost.setUpdatedAt(new Date());
         thePost.setUser(user);
-        System.out.println("saving post");
-        System.out.println(thePost);
+        //System.out.println("saving post");
+        //System.out.println(thePost);
         postService.save(thePost);
 
         return "redirect:/dashboard";

@@ -32,10 +32,16 @@ public class GeneralPageController {
 
     @GetMapping({"/blog", "/blog/{page}"})
     public String showBlog(Model theModel, @PathVariable(required = false) Integer page) {
-        int pageSize = 2;
+
+        int pageSize = 5;
+        int postsCount = postService.getPostsCount("published");
+        int lastPageNumber = (int) (Math.ceil((double) postsCount / (double) pageSize));
 
         List<Post> posts = postService.findAllPosts("published", pageSize, page == null ? 1 : page);
+
         theModel.addAttribute("posts", posts);
+        theModel.addAttribute("lastPageNumber", lastPageNumber);
+        theModel.addAttribute("currentPageNumber", page == null ? 1 : page);
 
         return "blog";
     }

@@ -71,14 +71,14 @@ public class RegistrationController {
             //theModel.addAttribute("webUser", new WebUser());
             theModel.addAttribute("registrationError", "User email already exists.");
 
-            logger.warning("User email already exists.");
+            //logger.warning("User email already exists.");
             return "register/registration-form";
         }
 
         // create user account and store in the databse
         userService.save(theWebUser);
 
-        logger.info("Successfully created user: " + userEmail);
+        //logger.info("Successfully created user: " + userEmail);
 
         // place user in the web http session for later use
         session.setAttribute("user", theWebUser);

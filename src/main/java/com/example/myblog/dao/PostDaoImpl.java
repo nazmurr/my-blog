@@ -63,22 +63,12 @@ public class PostDaoImpl implements PostDao {
     @Override
     public List<Post> findAllPosts(String postStatus, int pageSize, int pageNo) {
 
-//        String countQ = "Select count (p.id) from Post p where p.status = :data";
-//        Query countQuery = entityManager.createQuery(countQ);
-//        countQuery.setParameter("data", postStatus);
-
-        //Long countResults = (Long) countQuery.getSingleResult();
-        //System.out.println("count results: " + countResults);
-        //int pageSize = 2;
-        //int lastPageNumber = (int) (Math.ceil(countResults / pageSize));
-        int pageNumber = pageNo;
-
         TypedQuery<Post> query = entityManager.createQuery(
                 "from Post where status = :data order by id desc", Post.class);
 
         query.setParameter("data", postStatus);
 
-        query.setFirstResult((pageNumber - 1) * pageSize);
+        query.setFirstResult((pageNo - 1) * pageSize);
         query.setMaxResults(pageSize);
 
         List<Post> posts = query.getResultList();
