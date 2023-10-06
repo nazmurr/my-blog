@@ -31,6 +31,17 @@
                     </div>
                 </div>
 
+                <div
+                        th:if="${flash_message}"
+                        class="alert alert-success alert-dismissible fade show"
+                        role="alert"
+                >
+                    <span th:text="${flash_message}"></span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
                 <table class="table" th:if="${not #lists.isEmpty(posts)}">
                     <thead class="thead-dark">
                     <tr>

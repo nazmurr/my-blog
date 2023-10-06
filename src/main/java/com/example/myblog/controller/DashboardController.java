@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Date;
 import java.util.List;
@@ -59,7 +60,8 @@ public class DashboardController {
     @PostMapping({"/post/save-post"})
     public String savePost(Authentication authentication,
                            @ModelAttribute("post") Post thePost,
-                           Model theModel) {
+                           Model theModel,
+                           RedirectAttributes redirAttrs) {
 
         User user = userService.findByEmail(authentication.getName());
         thePost.setCreatedAt(new Date());
@@ -68,6 +70,8 @@ public class DashboardController {
         //System.out.println("saving post");
         //System.out.println(thePost);
         postService.save(thePost);
+
+        redirAttrs.addFlashAttribute("flash_message", "Post added successfully!");
 
         return "redirect:/dashboard";
     }
@@ -92,7 +96,10 @@ public class DashboardController {
     }
 
     @PostMapping({"/post/update-post"})
-    public String updatePost(Authentication authentication, @ModelAttribute("post") Post webPost) {
+    public String updatePost(
+            Authentication authentication,
+            @ModelAttribute("post") Post webPost,
+            RedirectAttributes redirAttrs) {
 
         User user = userService.findByEmail(authentication.getName());
         Post post = postService.findById(Math.toIntExact(webPost.getId()));
@@ -115,11 +122,16 @@ public class DashboardController {
 //        System.out.println(post.getUser());
         postService.save(post);
 
+        redirAttrs.addFlashAttribute("flash_message", "Post updated successfully!");
+
         return "redirect:/dashboard";
     }
 
     @GetMapping({"/post/delete/{id}"})
-    public String deletePost(Authentication authentication, @PathVariable int id) {
+    public String deletePost(
+            Authentication authentication,
+            @PathVariable int id,
+            RedirectAttributes redirAttrs) {
 
         User user = userService.findByEmail(authentication.getName());
         Post post = postService.findById(id);
@@ -134,6 +146,8 @@ public class DashboardController {
         }
 
         postService.deleteById(id);
+
+        redirAttrs.addFlashAttribute("flash_message", "Post deleted successfully!");
 
         return "redirect:/dashboard";
     }
