@@ -64,6 +64,11 @@ public class DashboardController {
                            RedirectAttributes redirAttrs) {
 
         User user = userService.findByEmail(authentication.getName());
+
+        String slug = thePost.getTitle().trim().replaceAll("[^a-zA-Z0-9\s]", "");
+        slug = slug.replaceAll(" ", "-");
+        thePost.setSlug(slug);
+
         thePost.setCreatedAt(new Date());
         thePost.setUpdatedAt(new Date());
         thePost.setUser(user);

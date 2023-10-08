@@ -15,6 +15,9 @@ public class Post {
     @Column(name = "title")
     private String title;
 
+    @Column(name = "slug")
+    private String slug;
+
     @Column(name = "content")
     private String content;
 
@@ -36,8 +39,9 @@ public class Post {
 
     }
 
-    public Post(String title, String content, String status, Date createdAt, Date updatedAt) {
+    public Post(String title, String slug, String content, String status, Date createdAt, Date updatedAt) {
         this.title = title;
+        this.slug = slug;
         this.content = content;
         this.status = status;
         this.createdAt = createdAt;
@@ -58,6 +62,14 @@ public class Post {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 
     public String getContent() {
