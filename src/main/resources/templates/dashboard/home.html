@@ -54,8 +54,8 @@
                     </thead>
                     <tbody>
                         <tr th:each="post : ${posts}">
-                            <th scope="row"><a th:text="${post.id}" th:href="@{/post/{id}(id=${post.id})}" href="#">1</a></th>
-                            <td class="title"><a th:text="${post.title}" th:href="@{/post/{id}(id=${post.id})}" href="#">Good post title Good post title Good post title Good post title Good post title Good post title</a></td>
+                            <th scope="row" th:text="${post.id}">1</th>
+                            <td class="title"><a th:text="${post.title}" th:href="@{/post/{slug}(slug=${post.slug})}" href="#">Good post title Good post title Good post title Good post title Good post title Good post title</a></td>
                             <td>
                                 <span
                                         th:if="${post.status == 'published'}"

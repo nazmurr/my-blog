@@ -22,4 +22,8 @@ public interface PostDao {
 
     int getPostsCount(String postStatus);
 
+    int getPostsCountBySlug(String postSlug);
+
+    Post findBySlug(String postSlug);
+
 }

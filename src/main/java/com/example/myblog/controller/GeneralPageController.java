@@ -46,14 +46,43 @@ public class GeneralPageController {
         return "blog";
     }
 
-    @GetMapping("/post/{id}")
-    public String showPost(@PathVariable int id, Model theModel) {
+//    @GetMapping("/post/{id}")
+//    public String showPost(@PathVariable int id, Model theModel) {
+//
+//        Post post = postService.findById(id);
+//
+//        if ((post == null) || (!post.getStatus().equals("published"))) {
+//            return "error";
+//        }
+//
+//        theModel.addAttribute("post", post);
+//
+//        return "post";
+//    }
 
-        Post post = postService.findById(id);
+    @GetMapping("/post/{slug}")
+    public String showPost(@PathVariable String slug, Model theModel) {
+
+        Post post = postService.findBySlug(slug);
 
         if ((post == null) || (!post.getStatus().equals("published"))) {
             return "error";
         }
+
+//        if (post != null) {
+//            Pattern pattern = Pattern.compile("\\d+$", Pattern.CASE_INSENSITIVE);
+//            Matcher matcher = pattern.matcher(post.getSlug());
+//            boolean matchFound = matcher.find();
+//            System.out.println(matchFound);
+//
+//
+//            if (matchFound) {
+//                int index = Integer.parseInt(matcher.group(0)) + 1;
+//                System.out.println(index);
+//                System.out.println("my-new-slug-" + index);
+//
+//            }
+//        }
 
         theModel.addAttribute("post", post);
 

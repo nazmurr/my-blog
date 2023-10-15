@@ -117,6 +117,7 @@ public class Post {
         return "Post{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
+                ", slug='" + slug + '\'' +
                 ", content='" + content + '\'' +
                 ", status='" + status + '\'' +
                 ", createdAt=" + createdAt +

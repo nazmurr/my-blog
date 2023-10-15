@@ -67,6 +67,13 @@ public class DashboardController {
 
         String slug = thePost.getTitle().trim().replaceAll("[^a-zA-Z0-9\s]", "");
         slug = slug.replaceAll(" ", "-");
+
+        int postsCount = postService.getPostsCountBySlug(slug);
+
+        if (postsCount > 0) {
+            slug += "-" + postsCount;
+        }
+
         thePost.setSlug(slug);
 
         thePost.setCreatedAt(new Date());
@@ -74,7 +81,14 @@ public class DashboardController {
         thePost.setUser(user);
         //System.out.println("saving post");
         //System.out.println(thePost);
-        postService.save(thePost);
+        try {
+            postService.save(thePost);
+
+        } catch (Exception e) {
+            //System.out.println(e.getMessage());
+            redirAttrs.addFlashAttribute("flash_error_message", e.getMessage());
+            return "redirect:/dashboard/post/new";
+        }
 
         redirAttrs.addFlashAttribute("flash_message", "Post added successfully!");
 

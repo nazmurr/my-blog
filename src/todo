@@ -1,1 +1,4 @@
-- add seo friendly url for posts instead of id based url for blog page
+- add tinymce editor in the add/edit post page for post content
+- fix the blog page excerpt to remove html content
+- add code display in view blog post page
+- check how to embed image in post without uploading to database or server (done)

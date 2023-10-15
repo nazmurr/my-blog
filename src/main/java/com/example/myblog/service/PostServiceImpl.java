@@ -56,4 +56,15 @@ public class PostServiceImpl implements PostService {
     public int getPostsCount(String postStatus) {
         return postDao.getPostsCount(postStatus);
     }
+
+    @Override
+    public int getPostsCountBySlug(String postSlug) {
+        return postDao.getPostsCountBySlug(postSlug);
+    }
+
+    @Override
+    public Post findBySlug(String postSlug) {
+        return postDao.findBySlug(postSlug);
+    }
+
 }

@@ -11,6 +11,16 @@
     <section class="my-5">
         <div class="container">
             <h1 class="mb-5">Add New Post</h1>
+            <div
+                    th:if="${flash_error_message}"
+                    class="alert alert-danger alert-dismissible fade show"
+                    role="alert"
+            >
+                <span th:text="${flash_error_message}"></span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             <form action="#" th:action="@{/dashboard/post/save-post}"
                   th:object="${post}"
                   method="POST">

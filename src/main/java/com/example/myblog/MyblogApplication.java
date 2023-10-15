@@ -28,6 +28,7 @@ public class MyblogApplication {
 			//getPostsByUserId(postService, 1);
 			//getAllPosts(postService);
 			//getPostsCount(postService);
+			//getPostBySlug(postService);
 		};
 	}
 
@@ -65,6 +66,12 @@ public class MyblogApplication {
 	private void getPostsCount(PostService postService) {
 		System.out.println("total posts: " + postService.getPostsCount());
 		System.out.println("published posts: " + postService.getPostsCount("published"));
+		System.out.println("published posts and slug: " + postService.getPostsCountBySlug("test-post"));
+	}
+
+	private void getPostBySlug(PostService postService) {
+		Post post = postService.findBySlug("my-test-post");
+		System.out.println(post);
 	}
 
 }

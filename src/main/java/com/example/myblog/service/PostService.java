@@ -20,4 +20,8 @@ public interface PostService {
     int getPostsCount();
 
     int getPostsCount(String postStatus);
+
+    int getPostsCountBySlug(String postSlug);
+
+    Post findBySlug(String postSlug);
 }

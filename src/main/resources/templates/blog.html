@@ -17,7 +17,7 @@
                 <div class="card mb-4" th:each="post : ${posts}">
                     <div class="card-body">
                         <h5 class="card-title">
-                            <a th:text="${post.title}" th:href="@{/post/{id}(id=${post.id})}" href="#">This is a post</a>
+                            <a th:text="${post.title}" th:href="@{/post/{slug}(slug=${post.slug})}" href="#">This is a post</a>
                         </h5>
                         <h6
                                 style="font-size: 14px;"
@@ -30,7 +30,7 @@
                                 th:text="${#strings.length(post.content) > 100 ? #strings.substring(post.content,0,100) + '...' : post.content}">
                             post content
                         </p>
-                        <a th:href="@{/post/{id}(id=${post.id})}" href="#" class="btn btn-primary">Read More</a>
+                        <a th:href="@{/post/{slug}(slug=${post.slug})}" href="#" class="btn btn-primary">Read More</a>
                     </div>
                     <div class="card-footer text-muted" th:text="${#dates.format(post.createdAt, 'MMM dd, yyyy')}">
                         July 31, 2024

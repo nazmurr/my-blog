@@ -98,4 +98,37 @@ public class PostDaoImpl implements PostDao {
 
         return postsCount.intValue();
     }
+
+    @Override
+    public int getPostsCountBySlug(String postSlug) {
+
+        String countQ = "Select count (p.id) from Post p where p.slug like concat(:data,'%')";
+        Query query = entityManager.createQuery(countQ);
+        query.setParameter("data", postSlug);
+
+        Long postsCount = (Long) query.getSingleResult();
+
+        return postsCount.intValue();
+    }
+
+    @Override
+    public Post findBySlug(String postSlug) {
+
+        Post post;
+
+        TypedQuery<Post> query =  entityManager.createQuery(
+                "from Post where slug = :data", Post.class);
+
+        query.setParameter("data", postSlug);
+
+        try {
+            post = query.getSingleResult();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            post = null;
+        }
+
+        return post;
+    }
 }
