@@ -30,7 +30,7 @@
                 </div>
                 <div class="form-group">
                     <label for="postContent">Post Content</label>
-                    <textarea class="form-control" th:field="*{content}" id="postContent" rows="6" required></textarea>
+                    <textarea class="form-control" th:field="*{content}" id="postContent" rows="6"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="postStatus">Post Status</label>
@@ -49,6 +49,22 @@
         </div>
     </section>
 </div>
+
+<th:block layout:fragment="scripts">
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tinymce/tinymce-jquery@1/dist/tinymce-jquery.min.js"></script>
+    <script>
+      $('textarea#postContent').tinymce({
+        height: 500,
+        menubar: false,
+        plugins: [
+           'advlist','autolink','lists','link','image','charmap','preview','anchor','searchreplace','visualblocks',
+           'fullscreen','insertdatetime','media','table','help','wordcount','code','codesample'
+        ],
+        toolbar: 'undo redo | casechange blocks | bold italic backcolor | link media image | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | code codesample table help | preview'
+      });
+    </script>
+</th:block>
 
 </body>
 </html>

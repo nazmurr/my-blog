@@ -1,4 +1,4 @@
-- add tinymce editor in the add/edit post page for post content
+- add tinymce editor in the add/edit post page for post content (done)
 - fix the blog page excerpt to remove html content
-- add code display in view blog post page
+- add code display in view blog post page (done)
 - check how to embed image in post without uploading to database or server (done)
