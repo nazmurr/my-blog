@@ -1,4 +1,5 @@
-- add tinymce editor in the add/edit post page for post content (done)
-- fix the blog page excerpt to remove html content
-- add code display in view blog post page (done)
-- check how to embed image in post without uploading to database or server (done)
+- Add excerpt field in add/edit post for post short description which will appear in the blog page. this can be
+empty/optional
+
+- Add featured image url field in add/post which will display a featured image in blog as well as in single post.
+this can be empty/optional and if empty no image will show

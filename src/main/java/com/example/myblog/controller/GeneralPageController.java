@@ -1,8 +1,11 @@
 package com.example.myblog.controller;
 
 import com.example.myblog.entity.Post;
+import com.example.myblog.entity.User;
 import com.example.myblog.service.PostService;
+import com.example.myblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,9 +18,12 @@ public class GeneralPageController {
 
     private PostService postService;
 
+    private UserService userService;
+
     @Autowired
-    public GeneralPageController(PostService postService) {
+    public GeneralPageController(PostService postService, UserService userService) {
         this.postService = postService;
+        this.userService = userService;
     }
 
     @GetMapping("/")
@@ -61,28 +67,25 @@ public class GeneralPageController {
 //    }
 
     @GetMapping("/post/{slug}")
-    public String showPost(@PathVariable String slug, Model theModel) {
+    public String showPost(Authentication authentication, @PathVariable String slug, Model theModel) {
+
+        String postStatus = "published";
+        User user;
 
         Post post = postService.findBySlug(slug);
 
-        if ((post == null) || (!post.getStatus().equals("published"))) {
-            return "error";
+        if (authentication != null) {
+            user = userService.findByEmail(authentication.getName());
+
+            //allow logged-in users to see their own posts no matter the post status
+            if (user.getId().equals(post.getUser().getId())) {
+                postStatus = post.getStatus();
+            }
         }
 
-//        if (post != null) {
-//            Pattern pattern = Pattern.compile("\\d+$", Pattern.CASE_INSENSITIVE);
-//            Matcher matcher = pattern.matcher(post.getSlug());
-//            boolean matchFound = matcher.find();
-//            System.out.println(matchFound);
-//
-//
-//            if (matchFound) {
-//                int index = Integer.parseInt(matcher.group(0)) + 1;
-//                System.out.println(index);
-//                System.out.println("my-new-slug-" + index);
-//
-//            }
-//        }
+        if ((post == null) || (!post.getStatus().equals(postStatus))) {
+            return "error";
+        }
 
         theModel.addAttribute("post", post);
 
