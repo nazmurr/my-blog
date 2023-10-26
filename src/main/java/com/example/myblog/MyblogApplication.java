@@ -33,7 +33,16 @@ public class MyblogApplication {
 	}
 
 	private void createPost(PostService postService, UserService userService) {
-		Post post = new Post("nice post", "nice-post", "thanks for writing it", "draft", new Date(), new Date());
+		Post post = new Post(
+				"nice post",
+				"nice-post",
+				"thanks for writing it",
+				"this is post excerpt",
+				"http://example.com",
+				"draft",
+				new Date(),
+				new Date()
+		);
 		User user = userService.findByEmail("nazmur.r@gmail.com");
 		post.setUser(user);
 		postService.save(post);

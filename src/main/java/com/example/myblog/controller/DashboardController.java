@@ -133,6 +133,8 @@ public class DashboardController {
 
         post.setTitle(webPost.getTitle());
         post.setContent(webPost.getContent());
+        post.setExcerpt(webPost.getExcerpt());
+        post.setFeaturedImgUrl(webPost.getFeaturedImgUrl());
         post.setStatus(webPost.getStatus());
         post.setUpdatedAt(new Date());
 

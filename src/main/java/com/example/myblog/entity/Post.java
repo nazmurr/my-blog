@@ -21,6 +21,12 @@ public class Post {
     @Column(name = "content")
     private String content;
 
+    @Column(name = "excerpt")
+    private String excerpt;
+
+    @Column(name = "featured_img_url")
+    private String featuredImgUrl;
+
     @Column(name = "status")
     private String status;
 
@@ -39,10 +45,12 @@ public class Post {
 
     }
 
-    public Post(String title, String slug, String content, String status, Date createdAt, Date updatedAt) {
+    public Post(String title, String slug, String content, String excerpt, String featuredImgUrl, String status, Date createdAt, Date updatedAt) {
         this.title = title;
         this.slug = slug;
         this.content = content;
+        this.excerpt = excerpt;
+        this.featuredImgUrl = featuredImgUrl;
         this.status = status;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -78,6 +86,22 @@ public class Post {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getExcerpt() {
+        return excerpt;
+    }
+
+    public void setExcerpt(String excerpt) {
+        this.excerpt = excerpt;
+    }
+
+    public String getFeaturedImgUrl() {
+        return featuredImgUrl;
+    }
+
+    public void setFeaturedImgUrl(String featuredImgUrl) {
+        this.featuredImgUrl = featuredImgUrl;
     }
 
     public String getStatus() {
@@ -119,6 +143,8 @@ public class Post {
                 ", title='" + title + '\'' +
                 ", slug='" + slug + '\'' +
                 ", content='" + content + '\'' +
+                ", excerpt='" + excerpt + '\'' +
+                ", featuredImgUrl='" + featuredImgUrl + '\'' +
                 ", status='" + status + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
