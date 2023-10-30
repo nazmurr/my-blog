@@ -12,8 +12,9 @@
                 <h1 th:text="${post.title}">Title</h1>
                 <p class="mb-5 mt-3" style="font-size: 14px;">
                     <i>Written By: <span th:text="${post.user.firstName + ' ' + post.user.lastName}">John doe</span> |
-                        Published At: <span th:text="${#calendars.format(post.createdAt,'MMMM dd, yyyy')}">July 31, 2023</span></i>
+                        Last Updated: <span th:text="${#calendars.format(post.updatedAt,'MMMM dd, yyyy')}">July 31, 2023</span></i>
                 </p>
+                <img th:if="${!#strings.isEmpty(post.featuredImgUrl)}" th:src="${post.featuredImgUrl}" src="image.png" class="img-fluid" alt="Responsive image">
                 <div style="white-space: pre-wrap;" th:utext="${post.content}">Post content</div>
             </div>
         </section>
