@@ -4,10 +4,12 @@ import com.example.myblog.entity.Post;
 import com.example.myblog.entity.User;
 import com.example.myblog.service.PostService;
 import com.example.myblog.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -57,11 +59,28 @@ public class DashboardController {
         return "dashboard/post/add-post";
     }
 
+//    @PostMapping({"/post/save-post"})
+//    public String savePost(Authentication authentication,
+//                           @Valid @ModelAttribute("post") Post thePost,
+//                           BindingResult bindingResult,
+//                           RedirectAttributes redirAttrs) {
+//        System.out.println(bindingResult.toString());
+//        return "dashboard/post/add-post";
+//
+//    }
+
     @PostMapping({"/post/save-post"})
     public String savePost(Authentication authentication,
-                           @ModelAttribute("post") Post thePost,
-                           Model theModel,
+                           @Valid @ModelAttribute("post") Post thePost,
+                           BindingResult bindingResult,
                            RedirectAttributes redirAttrs) {
+
+
+        //System.out.println(bindingResult.toString());
+
+        if (bindingResult.hasErrors()) {
+            return "dashboard/post/add-post";
+        }
 
         User user = userService.findByEmail(authentication.getName());
 

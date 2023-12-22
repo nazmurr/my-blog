@@ -1,6 +1,8 @@
 package com.example.myblog.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.util.Date;
 
@@ -12,6 +14,8 @@ public class Post {
     @Column(name = "id")
     private Long id;
 
+    @NotNull(message = "Title is required")
+    @Size(min = 10, message = "Title is required")
     @Column(name = "title")
     private String title;
 

@@ -1,9 +1,2 @@
-- Add excerpt field in add/edit post for post short description which will appear in the blog page. this can be
-empty/optional (done)
-
-- Add featured image url field in add/post which will display a featured image in blog as well as in single post.
-this can be empty/optional and if empty no image will show (done)
-
-- fix sort in the dashboard homepage and blog page for post. last updated post will appear at top (done)
-
-- add last updated timestamp in blog page and post instead of created date (done)
+- add server side validation for title and image url field in add and edit post.
+- check the back button in edit and add post to make it redirect to dashboard instead of history back
