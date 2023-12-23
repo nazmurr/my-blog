@@ -136,8 +136,13 @@ public class DashboardController {
     @PostMapping({"/post/update-post"})
     public String updatePost(
             Authentication authentication,
-            @ModelAttribute("post") Post webPost,
+            @Valid @ModelAttribute("post") Post webPost,
+            BindingResult bindingResult,
             RedirectAttributes redirAttrs) {
+
+        if (bindingResult.hasErrors()) {
+            return "dashboard/post/edit-post";
+        }
 
         User user = userService.findByEmail(authentication.getName());
         Post post = postService.findById(Math.toIntExact(webPost.getId()));

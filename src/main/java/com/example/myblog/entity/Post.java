@@ -15,7 +15,7 @@ public class Post {
     private Long id;
 
     @NotNull(message = "Title is required")
-    @Size(min = 10, message = "Title is required")
+    @Size(min = 10, message = "Title needs to be minimum 10 characters")
     @Column(name = "title")
     private String title;
 

@@ -32,6 +32,7 @@
                             class="form-control"
                             id="postTitle" placeholder="Title"
                             th:classappend="${#fields.hasErrors('title')} ? is-invalid : ''"
+                            required
                     >
                     <div th:if="${#fields.hasErrors('title')}" class="invalid-feedback" th:errors="*{title}">
 
@@ -61,7 +62,7 @@
                 </div>
                 <div class="mt-5">
                     <button type="submit" class="btn btn-primary">Add Post</button>
-                    <button type="button" class="btn btn-secondary" onclick="history.back()">Cancel</button>
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href='/dashboard'">Cancel</button>
                 </div>
             </form>
 
