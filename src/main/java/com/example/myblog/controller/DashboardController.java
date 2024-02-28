@@ -197,4 +197,13 @@ public class DashboardController {
         return "redirect:/dashboard";
     }
 
+    @GetMapping("/all-users")
+    public String allUsers(Authentication authentication, Model theModel) {
+
+        //List<Post> posts = postService.findPostsByUserId(Math.toIntExact(user.getId()));
+        //theModel.addAttribute("posts", posts);
+
+        return "dashboard/all-users";
+    }
+
 }

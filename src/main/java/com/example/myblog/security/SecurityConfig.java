@@ -38,7 +38,8 @@ public class SecurityConfig {
 //                                        "/processRegistrationForm",
 //                                        "/post/**").permitAll()
                                 //.requestMatchers("/login", "/register", "/processRegistrationForm").anonymous()
-                                .requestMatchers("/dashboard/**").hasRole("SUBSCRIBER")
+                                .requestMatchers("/dashboard/all-users", "/dashboard/all-posts").hasRole("ADMIN")
+                                .requestMatchers("/dashboard/**").hasAnyRole("SUBSCRIBER", "ADMIN")
                                 //.anyRequest().authenticated()
                                 .anyRequest().permitAll()
                 )
