@@ -147,4 +147,16 @@ public class User {
                 ", roles=" + roles +
                 '}';
     }
+
+    public boolean isAdminUser() {
+
+        for (Role role : this.getRoles()) {
+            //System.out.println(role.getName());
+            if (role.getName().equals("ROLE_ADMIN")) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

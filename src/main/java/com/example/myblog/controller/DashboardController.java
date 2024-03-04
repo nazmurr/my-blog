@@ -1,5 +1,6 @@
 package com.example.myblog.controller;
 
+import com.example.myblog.dto.UserWithPostCountDTO;
 import com.example.myblog.entity.Post;
 import com.example.myblog.entity.User;
 import com.example.myblog.service.PostService;
@@ -13,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -200,10 +202,31 @@ public class DashboardController {
     @GetMapping("/all-users")
     public String allUsers(Authentication authentication, Model theModel) {
 
-        //List<Post> posts = postService.findPostsByUserId(Math.toIntExact(user.getId()));
-        //theModel.addAttribute("posts", posts);
+        List<UserWithPostCountDTO> users = userService.findAllUsersWithPostCount();
+        theModel.addAttribute("users", users);
 
         return "dashboard/all-users";
+    }
+
+    @GetMapping({"/user/disable-account/{userId}"})
+    public String disableUserAccount(
+            Authentication authentication,
+            @PathVariable Long userId,
+            RedirectAttributes redirAttrs) {
+
+        User currentUser = userService.findByEmail(authentication.getName());
+
+        if (currentUser == null || !currentUser.isAdminUser()) {
+            return "redirect:/dashboard";
+        }
+
+        User user = userService.findById(userId);
+        user.setEnabled(false);
+        userService.save(user);
+
+        redirAttrs.addFlashAttribute("flash_message", "User account disabled.");
+
+        return "redirect:/dashboard/all-users";
     }
 
 }

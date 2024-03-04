@@ -2,6 +2,7 @@ package com.example.myblog.service;
 
 import com.example.myblog.dao.RoleDao;
 import com.example.myblog.dao.UserDao;
+import com.example.myblog.dto.UserWithPostCountDTO;
 import com.example.myblog.entity.Role;
 import com.example.myblog.entity.User;
 import com.example.myblog.user.WebUser;
@@ -12,10 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -40,6 +38,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findById(Long id) {
+        return userDao.findById(id);
+    }
+
+    @Override
     public void save(WebUser webUser) {
         User user = new User();
 
@@ -55,6 +58,21 @@ public class UserServiceImpl implements UserService {
 
         // save user in the database
         userDao.save(user);
+    }
+
+    @Override
+    public void save(User user) {
+        userDao.save(user);
+    }
+
+    @Override
+    public List<User> findAllUsers() {
+        return userDao.findAllUsers();
+    }
+
+    @Override
+    public List<UserWithPostCountDTO> findAllUsersWithPostCount() {
+        return userDao.findAllUsersWithPostCount();
     }
 
     @Override

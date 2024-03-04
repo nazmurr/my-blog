@@ -1,6 +1,8 @@
 package com.example.myblog;
 
+import com.example.myblog.dto.UserWithPostCountDTO;
 import com.example.myblog.entity.Post;
+import com.example.myblog.entity.Role;
 import com.example.myblog.entity.User;
 import com.example.myblog.service.PostService;
 import com.example.myblog.service.UserService;
@@ -29,7 +31,19 @@ public class MyblogApplication {
 			//getAllPosts(postService);
 			//getPostsCount(postService);
 			//getPostBySlug(postService);
+			//getAllUsers(userService);
+			//getUserById(userService);
 		};
+	}
+
+	private void getUserById(UserService userService) {
+		User user = userService.findById(8L);
+		System.out.println(user.isAdminUser());
+	}
+
+	private void getAllUsers(UserService userService) {
+		List<UserWithPostCountDTO> users = userService.findAllUsersWithPostCount();
+		System.out.println(users);
 	}
 
 	private void createPost(PostService postService, UserService userService) {
