@@ -76,7 +76,8 @@
                                         th:if="${!user.enabled}"
                                         type="button"
                                         class="btn btn-sm btn-secondary"
-                                        th:attr="data-id=${user.id}">Enable</button>
+                                        th:attr="data-id=${user.id}"
+                                        onclick="enableAccount(this)">Enable</button>
                             </td>
                         </tr>
 
@@ -91,6 +92,12 @@
                 var userId = element.getAttribute('data-id');
                 var c = confirm('Are you sure you want to disable account of user with id ' + userId + '?');
                 if (c) window.location.href="/dashboard/user/disable-account/" + userId;
+            }
+
+            function enableAccount(element) {
+                var userId = element.getAttribute('data-id');
+                var c = confirm('Are you sure you want to enable account of user with id ' + userId + '?');
+                if (c) window.location.href="/dashboard/user/enable-account/" + userId;
             }
         </script>
 

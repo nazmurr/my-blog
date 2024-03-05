@@ -5,6 +5,7 @@ import com.example.myblog.dao.UserDao;
 import com.example.myblog.dto.UserWithPostCountDTO;
 import com.example.myblog.entity.Role;
 import com.example.myblog.entity.User;
+import com.example.myblog.exception.CustomAuthenticationException;
 import com.example.myblog.user.WebUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -76,14 +77,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        System.out.println("in UserService Impl: loadUserByUsername(): " + email);
+    public UserDetails loadUserByUsername(String email) throws CustomAuthenticationException {
+        //System.out.println("in UserService Impl: loadUserByUsername(): " + email);
         User user = userDao.findByEmail(email);
-        System.out.println(user.toString());
-
+        //System.out.println(user.toString());
 
         if (user == null) {
-            throw new UsernameNotFoundException("Invalid username or password.");
+            System.out.println("error");
+            throw new CustomAuthenticationException("Invalid username or password.");
+        }
+
+        if (!user.isEnabled()) {
+            throw new CustomAuthenticationException("Your account is disabled. Please contact site administrator.");
+            //throw new UsernameNotFoundException("Your account is disabled. Please contact site administrator.");
         }
 
         Collection<SimpleGrantedAuthority> authorities = mapRolesToAuthorities(user.getRoles());

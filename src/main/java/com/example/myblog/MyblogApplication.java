@@ -4,6 +4,7 @@ import com.example.myblog.dto.UserWithPostCountDTO;
 import com.example.myblog.entity.Post;
 import com.example.myblog.entity.Role;
 import com.example.myblog.entity.User;
+import com.example.myblog.exception.GlobalExceptionHandler;
 import com.example.myblog.service.PostService;
 import com.example.myblog.service.UserService;
 import org.springframework.boot.CommandLineRunner;
@@ -35,6 +36,11 @@ public class MyblogApplication {
 			//getUserById(userService);
 		};
 	}
+
+//	@Bean
+//	public GlobalExceptionHandler myExceptionHandler() {
+//		return new GlobalExceptionHandler();
+//	}
 
 	private void getUserById(UserService userService) {
 		User user = userService.findById(8L);

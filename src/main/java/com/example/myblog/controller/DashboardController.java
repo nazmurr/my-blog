@@ -229,4 +229,25 @@ public class DashboardController {
         return "redirect:/dashboard/all-users";
     }
 
+    @GetMapping({"/user/enable-account/{userId}"})
+    public String enableUserAccount(
+            Authentication authentication,
+            @PathVariable Long userId,
+            RedirectAttributes redirAttrs) {
+
+        User currentUser = userService.findByEmail(authentication.getName());
+
+        if (currentUser == null || !currentUser.isAdminUser()) {
+            return "redirect:/dashboard";
+        }
+
+        User user = userService.findById(userId);
+        user.setEnabled(true);
+        userService.save(user);
+
+        redirAttrs.addFlashAttribute("flash_message", "User account enabled.");
+
+        return "redirect:/dashboard/all-users";
+    }
+
 }
