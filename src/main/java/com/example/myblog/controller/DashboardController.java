@@ -5,6 +5,8 @@ import com.example.myblog.entity.Post;
 import com.example.myblog.entity.User;
 import com.example.myblog.service.PostService;
 import com.example.myblog.service.UserService;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -33,9 +35,15 @@ public class DashboardController {
     }
 
     @GetMapping({"", "/"})
-    public String home(Authentication authentication, Model theModel) {
+    public String home(Authentication authentication, Model theModel, HttpServletRequest request) throws ServletException {
 
         User user = userService.findByEmail(authentication.getName());
+
+        if (!user.isEnabled()) {
+            request.logout();
+            return "redirect:/login?account_error=disabled";
+        }
+
         List<Post> posts = postService.findPostsByUserId(Math.toIntExact(user.getId()));
         theModel.addAttribute("posts", posts);
 

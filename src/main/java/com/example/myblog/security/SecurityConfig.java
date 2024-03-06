@@ -50,8 +50,8 @@ public class SecurityConfig {
                 .formLogin(form ->
                         form
                                 .loginPage("/login")
-                                .failureUrl("/login-error")
-                                .failureHandler(new MyCustomAuthenticationFailureHandler())
+                                //.failureUrl("/login-error")
+                                //.failureHandler(new MyCustomAuthenticationFailureHandler())
                                 .usernameParameter("email")
                                 .loginProcessingUrl("/authenticateTheUser")
                                 .defaultSuccessUrl("/dashboard", true)

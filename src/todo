@@ -3,4 +3,4 @@ v3 plans
 - add administrator pages: All users (done), All posts
 - admin can see all users and they can block/unblock users (done)
 - admin can see all users posts and they can change the post status of a post
-- when a user is blocked by admin, they will not be able to login (in progress, check how to display the error message in login page)
+- when a user is blocked by admin, they will not be able to login (done)
