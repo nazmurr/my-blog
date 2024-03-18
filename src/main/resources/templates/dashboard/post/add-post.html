@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{./layout.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Post</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <section class="my-5">
+        <div class="container">
+            <h1 class="mb-5">Add New Post</h1>
+            <div
+                    th:if="${flash_error_message}"
+                    class="alert alert-danger alert-dismissible fade show"
+                    role="alert"
+            >
+                <span th:text="${flash_error_message}"></span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="#" th:action="@{/dashboard/post/save-post}"
+                  th:object="${post}"
+                  method="POST">
+                <div class="form-group">
+                    <label for="postTitle">Post Title</label>
+                    <input
+                            type="text"
+                            th:field="*{title}"
+                            class="form-control"
+                            id="postTitle" placeholder="Title"
+                            th:classappend="${#fields.hasErrors('title')} ? is-invalid : ''"
+                            required
+                    >
+                    <div th:if="${#fields.hasErrors('title')}" class="invalid-feedback" th:errors="*{title}">
+
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="postContent">Post Content</label>
+                    <textarea class="form-control" th:field="*{content}" id="postContent" rows="6"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="postExcerpt">Post Excerpt</label>
+                    <textarea class="form-control" th:field="*{excerpt}" id="postExcerpt" rows="6"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="featuredImgUrl">Featured Image Url</label>
+                    <input type="url" th:field="*{featuredImgUrl}" class="form-control" id="featuredImgUrl" placeholder="Featured Image Url">
+                </div>
+                <div class="form-group">
+                    <label for="postStatus">Post Status</label>
+                    <select class="form-control" th:field="*{status}" id="postStatus" required>
+                        <option value="draft">Draft</option>
+                        <option value="unpublished">Unpublished</option>
+                        <option value="published">Published</option>
+                    </select>
+                </div>
+                <div class="mt-5">
+                    <button type="submit" class="btn btn-primary">Add Post</button>
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href='/dashboard'">Cancel</button>
+                </div>
+            </form>
+
+        </div>
+    </section>
+</div>
+
+<th:block layout:fragment="scripts">
+<!--    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/@tinymce/tinymce-jquery@1/dist/tinymce-jquery.min.js"></script>-->
+    <script src="https://cdn.tiny.cloud/1/gi720i9kug0u62zccrhib077bvxkdl4trffg9wes3tpac25i/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+      /*$('textarea#postContent').tinymce({
+        height: 500,
+        menubar: false,
+        plugins: [
+           'advlist','autolink','lists','link','image','charmap','preview','anchor','searchreplace','visualblocks',
+           'fullscreen','insertdatetime','media','table','help','wordcount','code','codesample'
+        ],
+        toolbar: 'undo redo | casechange blocks | bold italic backcolor | link media image | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | code codesample table help | preview'
+      });*/
+        tinymce.init({
+            selector: 'textarea#postContent',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name',
+            mergetags_list: [
+              { value: 'First.Name', title: 'First Name' },
+              { value: 'Email', title: 'Email' },
+            ],
+            ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+        });
+    </script>
+</th:block>
+
+</body>
+</html>

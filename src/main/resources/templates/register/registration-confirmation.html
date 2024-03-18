@@ -1,25 +1,30 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{./layout.html}">
 <head>
   <title>Registration Confirmation</title>
 </head>
-
 <body>
 
-<h2>User registered successfully!</h2>
+<div layout:fragment="content">
+  <section class="my-5">
+    <div class="container">
+      <h2>User registered successfully!</h2>
 
-<!-- display first name, last name and email -->
-<ul>
-  <li th:text="'First name: ' + ${webUser.firstName}"></li>
-  <li th:text="'Last name: ' + ${webUser.lastName}"></li>
-  <li th:text="'Email name: ' + ${webUser.email}"></li>
-</ul>
+      <!-- display first name, last name and email -->
+      <ul>
+        <li th:text="'First name: ' + ${webUser.firstName}"></li>
+        <li th:text="'Last name: ' + ${webUser.lastName}"></li>
+        <li th:text="'Email name: ' + ${webUser.email}"></li>
+      </ul>
 
-<hr>
+      <hr>
 
-<a th:href="@{/login}">Login</a>
+      <a th:href="@{/login}">Login</a>
+    </div>
+  </section>
+</div>
 
 </body>
-
 </html>

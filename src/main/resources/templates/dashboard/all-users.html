@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{./layout.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>All Users</title>
+    <style>
+        .table td a, .table th a {
+            color: inherit;
+        }
+        .table .badge {
+            font-size: 85%;
+        }
+    </style>
+</head>
+<body>
+
+    <div layout:fragment="content">
+        <section class="my-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h1 class="mb-5">All Users</h1>
+                    </div>
+                </div>
+
+                <div
+                        th:if="${flash_message}"
+                        class="alert alert-success alert-dismissible fade show"
+                        role="alert"
+                >
+                    <span th:text="${flash_message}"></span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Account Status</th>
+                        <th scope="col">Posts Count</th>
+                        <th scope="col">Created At</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="user : ${users}">
+                            <th scope="row" th:text="${user.id}">1</th>
+                            <td th:text="${user.firstName + ' ' + user.lastName}"></td>
+                            <td th:text="${user.email}"></td>
+                            <td>
+                                <span
+                                            th:if="${user.enabled}"
+                                            th:text="Enabled"
+                                            class="badge badge-success">Enabled</span>
+                                <span
+                                        th:if="${!user.enabled}"
+                                        th:text="Disabled"
+                                        class="badge badge-danger">Disabled</span>
+                            </td>
+                            <td th:text="${user.postCount}">0</td>
+                            <td th:text="${#dates.format(user.createdAt, 'MMM dd, yyyy')}">July 19, 2023</td>
+                            <td>
+                                <button
+                                        th:if="${user.enabled}"
+                                        type="button"
+                                        class="btn btn-sm btn-danger"
+                                        th:attr="data-id=${user.id}"
+                                        onclick="disableAccount(this)">Disable</button>
+                                <button
+                                        th:if="${!user.enabled}"
+                                        type="button"
+                                        class="btn btn-sm btn-secondary"
+                                        th:attr="data-id=${user.id}"
+                                        onclick="enableAccount(this)">Enable</button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+    <th:block layout:fragment="optional">
+        <script>
+            function disableAccount(element) {
+                var userId = element.getAttribute('data-id');
+                var c = confirm('Are you sure you want to disable account of user with id ' + userId + '?');
+                if (c) window.location.href="/dashboard/user/disable-account/" + userId;
+            }
+
+            function enableAccount(element) {
+                var userId = element.getAttribute('data-id');
+                var c = confirm('Are you sure you want to enable account of user with id ' + userId + '?');
+                if (c) window.location.href="/dashboard/user/enable-account/" + userId;
+            }
+        </script>
+
+    </th:block>
+
+</body>
+</html>

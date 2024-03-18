@@ -13,3 +13,19 @@ homepage, profile page
 functionalities:
 -------
 user signup, user login, user logout, user specific pages (profile)
+
+myblog v2 plans:
+===============
+db:
+-----
+post - id, title, content, user_id, created_at, updated_at, status
+
+pages:
+-----
+posts, add post, edit post
+
+functionalities:
+--------
+- user can create post
+- user can edit post
+- user can view all his posts and delete posts from the list posts page

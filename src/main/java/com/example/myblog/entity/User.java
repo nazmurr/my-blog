@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -38,6 +39,12 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
+
+    @OneToMany(mappedBy = "user",
+            //fetch = FetchType.EAGER, // EAGER means retrieve all associated courses
+            fetch = FetchType.LAZY, // LAZY means don't retrieve all associated courses. retrive it later when needed
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private List<Post> posts;
 
     public User() {
     }
@@ -120,6 +127,14 @@ public class User {
         this.roles = roles;
     }
 
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -131,5 +146,17 @@ public class User {
                 ", createdAt='" + createdAt + '\'' +
                 ", roles=" + roles +
                 '}';
+    }
+
+    public boolean isAdminUser() {
+
+        for (Role role : this.getRoles()) {
+            //System.out.println(role.getName());
+            if (role.getName().equals("ROLE_ADMIN")) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

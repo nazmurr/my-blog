@@ -1,17 +1,104 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{./layout.html}">
 <head>
     <meta charset="UTF-8">
     <title>Dashboard</title>
+    <style>
+        .table td a, .table th a {
+            color: inherit;
+        }
+        .table td.title {
+            max-width: 250px;
+        }
+        .table .badge {
+            font-size: 85%;
+        }
+    </style>
 </head>
 <body>
-    <h1>Dashboard</h1>
-    <div>
-        <a th:href="@{/dashboard/my-profile}" class="btn btn-primary mt-3" role="button" aria-pressed="true">My profile</a>
+
+    <div layout:fragment="content">
+        <section class="my-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h1 class="mb-5">Dashboard</h1>
+                    </div>
+                    <div class="col" style="text-align: right;">
+                        <button type="button" class="btn btn-primary" onclick="addPost()">+ Add Post</button>
+                    </div>
+                </div>
+
+                <div
+                        th:if="${flash_message}"
+                        class="alert alert-success alert-dismissible fade show"
+                        role="alert"
+                >
+                    <span th:text="${flash_message}"></span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <table class="table" th:if="${not #lists.isEmpty(posts)}">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Last Updated</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="post : ${posts}">
+                            <th scope="row" th:text="${post.id}">1</th>
+                            <td class="title"><a th:text="${post.title}" th:href="@{/post/{slug}(slug=${post.slug})}" href="#">Good post title Good post title Good post title Good post title Good post title Good post title</a></td>
+                            <td>
+                                <span
+                                        th:if="${post.status == 'published'}"
+                                        th:text="${#strings.capitalize(post.status)}"
+                                        class="badge badge-success">Published</span>
+                                <span
+                                        th:if="${post.status == 'unpublished'}"
+                                        th:text="${#strings.capitalize(post.status)}"
+                                        class="badge btn-secondary">Published</span>
+                                <span
+                                        th:if="${post.status == 'draft'}"
+                                        th:text="${#strings.capitalize(post.status)}"
+                                        class="badge btn-danger">Published</span>
+                            </td>
+                            <td th:text="${#dates.format(post.updatedAt, 'MMM dd, yyyy')}">July 19, 2023</td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-secondary" th:attr="data-id=${post.id}" onclick="editPost(this)">Edit</button>
+                                <button type="button" class="btn btn-sm btn-danger" th:attr="data-id=${post.id}" onclick="deletePost(this)">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </div>
-    <form action="#" th:action="@{/logout}" method="POST">
-        <input type="submit" value="Logout" class="btn btn-outline-primary mt-2" />
-    </form>
+    <th:block layout:fragment="optional">
+        <script>
+            function addPost() {
+                window.location.href="/dashboard/post/new";
+            }
+
+            function editPost(element) {
+               var postId = element.getAttribute('data-id');
+                window.location.href="/dashboard/post/edit/" + postId;
+            }
+
+            function deletePost(element) {
+                var postId = element.getAttribute('data-id');
+                var c = confirm('Are you sure you want to delete post with id ' + postId + '?');
+                if (c) window.location.href="/dashboard/post/delete/" + postId;
+            }
+        </script>
+    </th:block>
 
 </body>
 </html>

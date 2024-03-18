@@ -1,16 +1,24 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{./layout.html}">
 <head>
     <meta charset="UTF-8">
-    <title>Profile - Dashboard</title>
+    <title>My Profile</title>
 </head>
 <body>
-    <h1>My Profile</h1>
-    <p>Name: <span th:text="${user.firstName}"></span> <span th:text="${user.lastName}"></span></p>
-    <p>Email: <span sec:authentication="name"></span></p>
-    <p>Member Since: <span th:text="${user.createdAt}"></span></p>
-    <p>Role: <span sec:authentication="principal.authorities"></span></p>
+    <div layout:fragment="content">
+        <section class="my-5">
+            <div class="container">
+                <h1 class="mb-5">My Profile</h1>
+                <p><strong>Name:</strong> <span th:text="${user.firstName}"></span> <span th:text="${user.lastName}"></span></p>
+                <p><strong>Email:</strong> <span sec:authentication="name"></span></p>
+                <p><strong>Member Since:</strong> <span th:text="${user.createdAt}"></span></p>
+                <p><strong>Role:</strong> <span sec:authentication="principal.authorities"></span></p>
+            </div>
+        </section>
+    </div>
 
 </body>
 </html>

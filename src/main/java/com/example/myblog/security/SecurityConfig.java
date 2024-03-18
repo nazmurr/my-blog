@@ -1,11 +1,15 @@
 package com.example.myblog.security;
 
+import com.example.myblog.exception.GlobalExceptionHandler;
+import com.example.myblog.exception.MyCustomAuthenticationFailureHandler;
 import com.example.myblog.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -31,14 +35,23 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(configurer ->
                         configurer
-                                .requestMatchers("/", "/about", "/register", "/processRegistrationForm").permitAll()
+//                                .requestMatchers(
+//                                        "/",
+//                                        "/about",
+//                                        "/register",
+//                                        "/processRegistrationForm",
+//                                        "/post/**").permitAll()
                                 //.requestMatchers("/login", "/register", "/processRegistrationForm").anonymous()
-                                .requestMatchers("/dashboard/**").hasRole("SUBSCRIBER")
-                                .anyRequest().authenticated()
+                                .requestMatchers("/dashboard/all-users", "/dashboard/all-posts").hasRole("ADMIN")
+                                .requestMatchers("/dashboard/**").hasAnyRole("SUBSCRIBER", "ADMIN")
+                                //.anyRequest().authenticated()
+                                .anyRequest().permitAll()
                 )
                 .formLogin(form ->
                         form
                                 .loginPage("/login")
+                                //.failureUrl("/login-error")
+                                //.failureHandler(new MyCustomAuthenticationFailureHandler())
                                 .usernameParameter("email")
                                 .loginProcessingUrl("/authenticateTheUser")
                                 .defaultSuccessUrl("/dashboard", true)
